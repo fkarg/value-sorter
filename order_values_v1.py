@@ -50,10 +50,12 @@ def main():
 
         try:
             index = int(inp)
-            assert index > 0
+            assert index > -1
             assert index < 4
         except (ValueError, AssertionError):
-            print("Please enter '1', '2' or '3' to select one of the presented values")
+            print(
+                "Please enter '1', '2' or '3' to select one of the presented values, or '0' if they are of equal value to you."
+            )
             return get_input()  # this might lead to a very unlikely
             # 'recursion limit error' when repeated more than 5k times.
         return index
@@ -65,7 +67,8 @@ def main():
 
         try:
             index = get_input()
-            values[selection[index - 1]] += 1
+            if index:  # if index == 0: don't evaluate
+                values[selection[index - 1]] += 1
         except KeyboardInterrupt as e:
             break
 
